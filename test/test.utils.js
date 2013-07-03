@@ -146,30 +146,4 @@ describe("utils", function () {
         expect(uuid).toMatch(/^(\{{0,1}([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}\}{0,1})$/);
         expect(uuid).not.toEqual(utils.createUUID());
     });
-
-    it("can base64 encode a typed array", function () {
-        var view = new Uint8Array(6);
-        for (var i = 0; i < view.length; i++) {
-            view[i] = i;
-        }
-        expect(utils.uint8ToBase64(view.subarray(0,1))).toBe('AA==');
-        expect(utils.uint8ToBase64(view.subarray(0,2))).toBe('AAE=');
-        expect(utils.uint8ToBase64(view.subarray(0,3))).toBe('AAEC');
-        expect(utils.uint8ToBase64(view.subarray(0,4))).toBe('AAECAw==');
-        expect(utils.uint8ToBase64(view.subarray(0,5))).toBe('AAECAwQ=');
-        expect(utils.uint8ToBase64(view)).toBe('AAECAwQF');
-    });
-    
-    it("can base64 encode an ArrayBuffer", function () {
-      var buffer = new Buffer('Some Awesome Test This Is!', 'binary')
-        , base64 = buffer.toString('base64')
-        , arrayBuffer = new ArrayBuffer(buffer.length)
-        , view = new Uint8Array(arrayBuffer);
-
-      for (var i = 0; i < buffer.length; i++) {
-        view[i] = buffer[i];
-      }
-
-      expect(utils.encodeBase64(arrayBuffer)).toBe(base64);
-    });
 });
